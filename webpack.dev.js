@@ -91,11 +91,14 @@ module.exports = {
 	mode: 'development',
 
 	optimization: {
+		runtimeChunk: 'single',
 		splitChunks: {
 			cacheGroups: {
 				vendors: {
 					priority: -10,
-					test: /[\\/]node_modules[\\/]/
+					test: /[\\/]node_modules[\\/]/,
+					name: 'vendors',
+					chunks: 'all'
 				}
 			},
 
