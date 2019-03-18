@@ -5,6 +5,9 @@ node_js:
 
 script: npx webpack --config webpack.dev.js --mode production
 
+notifications:
+  email: false
+
 deploy:
   provider: pages
   local-dir: dist/
