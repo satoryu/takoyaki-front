@@ -76,6 +76,12 @@ module.exports = {
 		})
 	],
 
+	resolve: {
+		alias: {
+		  vue$: "vue/dist/vue.esm.js"
+		}
+	  },
+
 	mode: 'development',
 
 	optimization: {

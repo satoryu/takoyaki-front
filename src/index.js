@@ -1,2 +1,8 @@
-console.log("Hello, World!")
-let a = 1;
+import Vue from "vue";
+
+new Vue({
+  el: "#app",
+  template: `
+        <h1>Hello, Vue!</h1>
+    `
+});
