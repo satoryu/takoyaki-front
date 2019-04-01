@@ -27,7 +27,7 @@ const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const VuetifyLoaerPlugin = require('vuetify-loader/lib/plugin');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
@@ -101,7 +101,7 @@ module.exports = {
 	devtool: false,
 	plugins: [
 		new VueLoaderPlugin(),
-		new VuetifyLoaerPlugin(),
+		new VuetifyLoaderPlugin(),
 		new HtmlWebpackPlugin({
 			template: './src/index.html'
 		}),
