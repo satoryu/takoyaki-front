@@ -25,6 +25,7 @@ const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const VuetifyLoaerPlugin = require('vuetify-loader/lib/plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
@@ -54,6 +55,22 @@ module.exports = {
 				loader: 'vue-loader'
 			},
 			{
+				test: /\.styl$/,
+				use: ['style-loader', 'css-loader', 'stylus-loader']
+			},
+			{
+				test: /\.(woff(2)?|ttf|eot|svg)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
+							outputPath: 'fonts/'
+						}
+					}
+				]
+			},
+			{
 				test: /\.(scss|css)$/,
 
 				use: [
@@ -78,6 +95,7 @@ module.exports = {
 
 	plugins: [
 		new VueLoaderPlugin(),
+		new VuetifyLoaerPlugin(),
 		new HtmlWebpackPlugin({
 			template: './src/index.html'
 		}),
