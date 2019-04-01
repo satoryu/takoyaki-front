@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const webpack = require('webpack');
 const path = require('path');
 
@@ -42,7 +44,10 @@ module.exports = {
 						[
 							'@babel/preset-env',
 							{
-								modules: false
+								modules: false,
+								targets: {
+									node: 'current'
+								}
 							}
 						]
 					]
@@ -93,13 +98,18 @@ module.exports = {
 		filename: '[name].[chunkhash].js'
 	},
 
+	devtool: false,
 	plugins: [
 		new VueLoaderPlugin(),
 		new VuetifyLoaerPlugin(),
 		new HtmlWebpackPlugin({
 			template: './src/index.html'
 		}),
-		new CleanWebpackPlugin()
+		new CleanWebpackPlugin(),
+		new webpack.DefinePlugin({
+			API_HOST: JSON.stringify(process.env.API_HOST)
+		}),
+		new webpack.SourceMapDevToolPlugin()
 	],
 
 	resolve: {
@@ -109,7 +119,6 @@ module.exports = {
 	  },
 
 	mode: 'development',
-
 	optimization: {
 		runtimeChunk: 'single',
 		splitChunks: {
