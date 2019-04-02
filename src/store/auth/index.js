@@ -19,11 +19,12 @@ const mutations = {
     }
 }
 
-const apiHost = API_HOST;
-
 const actions = {
-    async currentUser({commit}) {
-        const res = await axios.get(`${apiHost}/.auth/me`, { withCredentials: true })
+    async currentUser({commit, getters}) {
+        if (getters['check'])
+            return
+
+        const res = await axios.get('/.auth/me', { withCredentials: true })
         const user = res.data[0]
         if (user) {
             console.log(user)

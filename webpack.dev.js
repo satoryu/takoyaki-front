@@ -107,7 +107,8 @@ module.exports = {
 		}),
 		new CleanWebpackPlugin(),
 		new webpack.DefinePlugin({
-			API_HOST: JSON.stringify(process.env.API_HOST)
+			API_HOST: JSON.stringify(process.env.API_HOST),
+			FUNCTION_KEY: JSON.stringify(process.env.FUNCTION_KEY)
 		}),
 		new webpack.SourceMapDevToolPlugin()
 	],

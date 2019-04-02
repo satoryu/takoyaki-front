@@ -6,12 +6,11 @@
                 <div v-if="isLogin">
                     Hi, {{ userId }}!
                 </div>
-                <v-btn
-                    v-else
-                    :href="loginUrl"
-                >
-                    Login
-                </v-btn>
+                <div v-else>
+                    <v-btn :href="loginUrl">
+                        Login
+                    </v-btn>
+                </div>
             </v-container>
         </v-content>
         <v-footer app></v-footer>
@@ -36,9 +35,6 @@ import store from './store'
 
 export default {
     store,
-    created() {
-        this.$store.dispatch('auth/currentUser')
-    },
     data: function() {
         return {
             greeting: 'Hello,',
