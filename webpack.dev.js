@@ -111,7 +111,9 @@ module.exports = {
 			FUNCTION_KEY: JSON.stringify(process.env.FUNCTION_KEY),
 			INSTRUMENTATION_KEY: JSON.stringify(process.env.INSTRUMENTATION_KEY)
 		}),
-		new webpack.SourceMapDevToolPlugin()
+		new webpack.SourceMapDevToolPlugin({
+			filename: '[name].js.map'
+		})
 	],
 
 	resolve: {
