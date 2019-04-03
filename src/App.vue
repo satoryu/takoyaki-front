@@ -1,6 +1,28 @@
 <template>
     <v-app>
-        <v-toolbar app></v-toolbar>
+        <v-toolbar app>
+            <v-toolbar-title>
+                Takoyaki
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+
+            <v-toolbar-items
+                v-if="isLogin"
+            >
+                <v-btn :href="logoutUrl" flat>
+                    <v-icon>mdi-logout-variant</v-icon>
+                    Sign-out
+                </v-btn>
+            </v-toolbar-items>
+            <v-toolbar-items
+                v-else
+            >
+                <v-btn :href="loginUrl" flat>
+                    <v-icon>mdi-login-variant</v-icon>
+                    Sign-in
+                </v-btn>
+            </v-toolbar-items>
+        </v-toolbar>
         <v-content>
             <v-container fluid>
                 <v-layout column v-if="isLogin">
@@ -75,7 +97,10 @@ export default {
             return this.$store.getters['auth/userId']
         },
         loginUrl() {
-            return `${API_HOST}/.auth/login/twitter`
+            return `${API_HOST}/.auth/login/twitter?post_login_redirect_url=${encodeURIComponent(window.location.origin)}`
+        },
+        logoutUrl() {
+            return `${API_HOST}/.auth/logout?post_logout_redirect_uri=${encodeURIComponent(window.location.origin)}`
         }
     }
 }

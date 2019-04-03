@@ -24,11 +24,15 @@ const actions = {
         if (getters['check'])
             return
 
-        const res = await axios.get('/.auth/me', { withCredentials: true })
-        const user = res.data[0]
-        if (user) {
-            console.log(user)
-            commit('setUser', user)
+        try {
+            const res = await axios.get('/.auth/me', { withCredentials: true })
+            const user = res.data[0]
+            if (user) {
+                console.log(user)
+                commit('setUser', user)
+            }
+        } catch(error) {
+            console.error(error);
         }
     }
 }
