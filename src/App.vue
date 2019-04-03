@@ -3,9 +3,26 @@
         <v-toolbar app></v-toolbar>
         <v-content>
             <v-container fluid>
-                <div v-if="isLogin">
+                <v-layout column v-if="isLogin">
                     Hi, {{ userId }}!
-                </div>
+                    <v-textarea
+                        prepend-inner-icon="mdi-message-outline"
+                        autofocus
+                        box
+                        clearable
+                        label="Tweet"
+                        v-model="status"
+                    >
+                    </v-textarea>
+                    <v-btn
+                        color="info"
+                        round
+                        @click.prevent="tweet"
+                    >
+                        <v-icon>mdi-twitter</v-icon>
+                        Tweet
+                    </v-btn>
+                </v-layout>
                 <div v-else>
                     <v-btn :href="loginUrl">
                         Login
@@ -33,12 +50,21 @@ Vue.use(Vuex)
 
 import store from './store'
 
+import axios from 'axios'
+
 export default {
     store,
     data: function() {
         return {
-            greeting: 'Hello,',
-            name: 'Vue Component'
+            status: ''
+        }
+    },
+    methods: {
+        tweet() {
+            axios.post('/api/PostTweet',
+                { status: this.status },
+                { withCredentials: true })
+            this.status = ''
         }
     },
     computed: {
@@ -47,9 +73,6 @@ export default {
         },
         userId() {
             return this.$store.getters['auth/userId']
-        },
-        greetingMessage() {
-            return `${this.greeting} ${this.name}!`
         },
         loginUrl() {
             return `${API_HOST}/.auth/login/twitter`
