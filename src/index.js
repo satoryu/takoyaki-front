@@ -12,7 +12,10 @@ const loadApp = async () => {
   await store.dispatch('auth/currentUser')
 
   if (INSTRUMENTATION_KEY) {
-    AppInsights.downloadAndSetup({ instrumentationKey: INSTRUMENTATION_KEY });
+    AppInsights.downloadAndSetup({
+      instrumentationKey: INSTRUMENTATION_KEY,
+      enableCorsCorrelation: true
+    });
 
     if (store.getters['auth/check'])
       AppInsights.setAuthenticatedUserContext(store.getters['auth/userId'])
