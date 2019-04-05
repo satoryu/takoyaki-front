@@ -32,7 +32,10 @@ const actions = {
                 commit('setUser', user)
             }
         } catch(error) {
-            console.error(error);
+            const status = error.response.status
+            console.error(error.message);
+            if (status >= 500)
+                throw error
         }
     }
 }
