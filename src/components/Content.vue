@@ -10,16 +10,28 @@
                     clearable
                     label="Tweet"
                     v-model="status"
+                    @keydown.ctrl.enter="postTweet"
                 >
                 </v-textarea>
                 <v-btn
                     color="info"
                     round
-                    @click.prevent="tweet"
+                    @click.prevent="posTweet"
                 >
                     <v-icon>mdi-twitter</v-icon>
                     Tweet
                 </v-btn>
+                <v-list three-line>
+                    <v-list-tile
+                        v-for="tweet in tweets"
+                        :key="tweet.id"
+                    >
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ tweet.text }}</v-list-tile-title>
+                            <v-list-tile-sub-title>{{ tweet.created_at }} - {{ tweet.name }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-list>
             </v-layout>
             <div v-else>
                 <v-btn :href="loginUrl">
@@ -41,17 +53,37 @@ import axios from 'axios'
 
 export default {
     store,
+    created() {
+        setInterval(() => {
+            this.getTweets()
+        }, 3000)
+    },
     data: function() {
         return {
-            status: ''
+            status: '',
+            tweets: []
         }
     },
     methods: {
-        tweet() {
+        postTweet() {
+            const status = this.status
+
             axios.post('/api/PostTweet',
-                { status: this.status },
-                { withCredentials: true })
+                { status },
+                { withCredentials: true }
+            )
+
             this.status = ''
+        },
+        async getTweets() {
+            const name = this.userId
+            const response = await axios.get('/api/GetTweets',
+                {
+                    params: { name },
+                    withCredentials: true
+                }
+            )
+            this.tweets = response.data
         }
     },
     computed: {
