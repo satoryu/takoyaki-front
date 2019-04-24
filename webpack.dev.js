@@ -34,26 +34,10 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				include: [path.resolve(__dirname, 'src')],
+				test: /\.js$/,
 				loader: 'babel-loader',
-
-				options: {
-					plugins: ['syntax-dynamic-import'],
-
-					presets: [
-						[
-							'@babel/preset-env',
-							{
-								modules: false,
-								targets: {
-									node: 'current'
-								}
-							}
-						]
-					]
-				},
-
-				test: /\.js$/
+				include: [path.resolve(__dirname, 'src')],
+				exclude: /node_modules/
 			},
 			{
 				test: /\.vue$/,

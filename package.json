@@ -8,27 +8,29 @@
     "watch": "npm run build -- --watch",
     "production": "npm run build -- --mode production",
     "prod": "npm run production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
     "@mdi/font": "^3.5.95",
+    "@vue/test-utils": "^1.0.0-beta.29",
     "@webpack-cli/init": "^0.1.5",
     "applicationinsights-js": "^1.0.20",
     "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
     "babel-jest": "^24.7.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^2.0.1",
     "css-loader": "^2.1.0",
     "dotenv": "^7.0.0",
     "file-loader": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.7.1",
+    "jest-vue-preprocessor": "^1.5.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
@@ -39,14 +41,24 @@
     "vue-jest": "^3.0.4",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.9",
-    "vue-test-utils": "^1.0.0-beta.11",
     "vuetify": "^1.5.8",
     "vuetify-loader": "^1.2.1",
     "vuex": "^3.1.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3"
   },
-  "dependencies": {
-    "jest-vue-preprocessor": "^1.5.0"
+  "jest": {
+    "verbose": true,
+    "moduleNameMapper": {
+      "^vue$": "vue/dist/vue.common.js"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      ".*\\.(vue)$": "vue-jest"
+    }
   }
 }
