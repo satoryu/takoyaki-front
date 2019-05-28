@@ -9,7 +9,6 @@ localVue.use(Vuetify)
 import Content from '../../src/components/Content.vue'
 
 import axios from 'axios'
-import { exportAllDeclaration } from '@babel/types';
 const mockPost = jest.fn()
 jest.mock('axios', () => {
     return jest.fn().mockImplementation(() => {
@@ -26,12 +25,12 @@ describe('Content.vue', () => {
     describe('Before login', () => {
         beforeEach(() => {
             getters = {
-                check: jest.fn().mockImplementation(() => true ),
+                check: () => false,
                 userId: jest.fn()
             }
         })
 
-       it('should call postTweet API', () => {
+       it('should display Login button', () => {
             let store = new Vuex.Store({
                 modules: {
                     auth: {
@@ -41,11 +40,38 @@ describe('Content.vue', () => {
                 }
             })
 
-            shallowMount(Content, {
+            let content = shallowMount(Content, {
                 store, localVue
             })
 
-            expect(getters.check).toHaveBeenCalled()
+            expect(content.html()).toContain('Login')
+        })
+    })
+
+    describe('After Login', () => {
+        beforeEach(() => {
+            getters = {
+                check: () => true,
+                userId: () => 'takoyaki_san'
+            }
+        })
+
+        it('should not display Login button', () =>{
+            let store = new Vuex.Store({
+                modules: {
+                    auth: {
+                        namespaced: true,
+                        getters
+                    }
+                }
+            })
+
+            let content = shallowMount(Content, {
+                store, localVue
+            })
+
+            expect(content.html()).toContain('Hi, takoyaki_san')
+            expect(content.html()).not.toContain('Login')
         })
     })
 })
