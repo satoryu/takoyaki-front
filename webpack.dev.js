@@ -36,23 +36,6 @@ module.exports = {
 			{
 				include: [path.resolve(__dirname, 'src')],
 				loader: 'babel-loader',
-
-				options: {
-					plugins: ['syntax-dynamic-import'],
-
-					presets: [
-						[
-							'@babel/preset-env',
-							{
-								modules: false,
-								targets: {
-									node: 'current'
-								}
-							}
-						]
-					]
-				},
-
 				test: /\.js$/
 			},
 			{

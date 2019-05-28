@@ -33,6 +33,7 @@ const loadApp = async () => {
 
 
   new Vue({
+    store,
     el: "#app",
     components: { App },
     template: '<App/></App>'
