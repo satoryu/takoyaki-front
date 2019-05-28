@@ -54,9 +54,11 @@ import axios from 'axios'
 export default {
     store,
     created() {
-        setInterval(() => {
-            this.getTweets()
-        }, 3000)
+        if (this.isLogin) {
+            setInterval(() => {
+                this.getTweets()
+            }, 3000)
+        }
     },
     data: function() {
         return {
